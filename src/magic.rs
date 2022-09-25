@@ -13,6 +13,22 @@ pub struct Param(pub String);
 
 pub struct Id(pub u32);
 
+pub trait FromContext {
+    fn from_context(context: &Context) -> Self;
+}
+
+impl FromContext for Param {
+    fn from_context(context: &Context) -> Self {
+        Param(context.param.clone())
+    }
+}
+
+impl FromContext for Id {
+    fn from_context(context: &Context) -> Self {
+        Id(context.id)
+    }
+}
+
 pub trait Handler<T> {
     fn call(self, context: Context);
 }
@@ -23,7 +39,7 @@ where
     T: FromContext,
 {
     fn call(self, context: Context) {
-        (self)(T::from_context(context));
+        (self)(T::from_context(&context));
     }
 }
 
@@ -34,23 +50,7 @@ where
     T2: FromContext,
 {
     fn call(self, context: Context) {
-        (self)(T1::from_context(context.clone()), T2::from_context(context));
-    }
-}
-
-pub trait FromContext {
-    fn from_context(context: Context) -> Self;
-}
-
-impl FromContext for Param {
-    fn from_context(context: Context) -> Self {
-        Param(context.param)
-    }
-}
-
-impl FromContext for Id {
-    fn from_context(context: Context) -> Self {
-        Id(context.id)
+        (self)(T1::from_context(&context), T2::from_context(&context));
     }
 }
 

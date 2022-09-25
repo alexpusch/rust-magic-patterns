@@ -19,7 +19,7 @@ fn print_all_switched(Id(id): Id, Param(param): Param) {
 }
 
 pub fn main() {
-    let context = Context::new("test".into(), 33);
+    let context = Context::new("magic".into(), 33);
 
     trigger(context.clone(), print_id);
     trigger(context.clone(), print_param);
