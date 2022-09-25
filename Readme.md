@@ -1,0 +1,1 @@
+# Rusts Axum style magic function params
