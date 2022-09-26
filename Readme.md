@@ -2,7 +2,7 @@
 
 Learning Rust I met a rigid, statically typed language. Specifically it has no function overloading or optional function parameters.
 
-Coming across Axum I was amazed to see stuff like:
+Coming across [Axum](https://github.com/tokio-rs/axum) I was amazed to see stuff like:
 
 ```rust
 let app = Router::new()
@@ -22,7 +22,7 @@ async fn get_product(State(db): State<Db>, Json(payload): Json<Payload>) -> Stri
 }
 ```
 
-The `get` method can receive a function point to various types of functions! What kind of black magic is this? 🤯
+The `get` method can receive a function pointer to various types of functions! What kind of black magic is this? 🤯
 
 I had to create a simplified version of this to figure this out.
 
@@ -37,7 +37,7 @@ fn print_all(Param(param): Param, Id(id): Id) {
 }
 
 pub fn main() {
-    let context = Context::new("test".into(), 33);
+    let context = Context::new("magic".into(), 33);
 
     trigger(context.clone(), print_id);
     trigger(context.clone(), print_all);
@@ -124,14 +124,14 @@ where
 }
 ```
 
-Lets example what happens for this call
+Lets examine what happens for this call
 ```rust
   let context = Context::new("magic".into(), 33);
 
   trigger(context.clone(), print_id);
 ```
 
-- `print_id` is of type `Fn(Id)` which has an implementation of `Handler<Id>`.
+- `print_id` is of type `Fn(Id)` which has an implementation for `Handler<Id>`.
 - The `Handler::call` method is called from which we `Id::from_context(context)` which returns an instance of `Id` struct.
 - `print_id` is called with the parameter it expects.
 
