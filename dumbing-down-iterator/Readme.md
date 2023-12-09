@@ -1,10 +1,8 @@
 # Dumbing down Rust Iterator internals
 
-The Rust Iterator API is one of the first things a Rust novice should learn after familiarizing themselves with the basics of the language.
+The Rust Iterator API is one of the first things a Rust novice should learn after familiarizing themselves with the basics of the language. However, this API and its documentation can be daunting for a beginner.
 
-However, this API and its documentation can be daunting for a beginner.
-
-For example, let's look at the basic `map` function:
+For example, have you ever looked at the [map](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map) method documentation and wondered why it's so complicated?
 
 ```rust
 fn map<B, F>(self, f: F) -> Map<Self, F> 
@@ -24,7 +22,7 @@ let s: HashSet<_> = (0..10).collect();
 
 How can this be possible? Rust is a statically typed language, right? How can the same method return different types?
 
-In this article I will try to explain how the Iterator API type system works by dumbing it down to a bare minimum implementation.
+Lets learn how the Iterator API type system works by dumbing it down to a bare minimum implementation.
 
 ## Iterator trait
 The [Iterator trait](https://doc.rust-lang.org/std/iter/trait.Iterator.html) is the first building block of the iterator API.
@@ -39,13 +37,13 @@ pub trait MyIterator {
 }
 ```
 
-This trait defines the basic mechanism for iteration. It has a single method `next` which returns the next item in the iteration, or `None` if the iteration is over. The `Item` associated type defines the type of the items in the iteration.
+This trait defines the basic mechanism for iteration. It has a single method `next` which returns the next item in the iteration, or `None` if the iteration is over. The `Item` [associated type](https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#specifying-placeholder-types-in-trait-definitions-with-associated-types) defines the type of the items in the iteration.
 
 ## Example - SliceIterator
 Let's implement a simple iterator for a simple slice - `[T]`. This is a 
 dumbing down of [std::slice::Iter](https://doc.rust-lang.org/std/slice/struct.Iter.html)
 
-The `SliceIterator` struct holds a reference to the vector and the current position in the iteration. Note the lifetime parameter `'a` which is used to ensure that the iterator does not outlive the vector it iterates.
+The `SliceIterator` struct holds a reference to the vector and the current position in the iteration. 
 
 ```rust
 /// The lifetime parameter `'a` is used to ensure that the iterator does not outlive the data it iterates over.
@@ -79,7 +77,6 @@ impl<'a, T> MyIterator for SliceIterator<'a, T> {
     }
 }
 ```
-
 Let's test our iterator:
 
 ```rust
@@ -91,6 +88,16 @@ fn slice_iterator_next_returns_next_item() {
     assert_eq!(iter.next(), Some(&3));
     assert_eq!(iter.next(), None);
 }
+```
+
+**Note the lifetime parameter `'a`** which is used to ensure that the iterator does not outlive the slice it iterates over. This is important because the iterator holds a reference to the slice, and if the slice is dropped before the iterator, the iterator will hold a dangling reference. We don't want that.
+
+Thanks to this lifetime parameter, the following code will not compile:
+```rust
+let data = vec![1, 2, 3, 4, 5];             // ──| data variable lifetime 'a starts
+let mut iter = SliceIterator::new(&data);   //   | SliceIterator::new is bound to 'a lifetime
+drop(data);                                 // __| data is dropped - lifetime ends
+iter.next();                                // here we violate the 'a constraint defined in SliceIterator
 ```
 
 ## Iterator methods
@@ -173,6 +180,14 @@ where
 }
 ```
 
+Lets examine the various generic variables we used here:
+
+`I` - The MyMap struct owns the instance of the iterator we're mapping over. `I` is the type of this iterator. For example, if we are mapping over a `SliceIterator`, `I` will be `SliceIterator`.
+
+`F` - The MyMap struct also owns the closure we use to map the items. `F` is the type of this closure. For example, if the closure is `|x| x * 2`, `F` will be `FnMut(&i32) -> i32`.
+
+`B` - The map function return type needs to be defined as well. The return value of the map function is the item type of the MyMap iterator. For example, if the closure is `|x| x * 2`, `B` will be `i32`, and the MyMap iterator `next` method have `Option<i32>` as its return value.
+
 ### Filter Adapter
 Dumbing down of [std::iter::Filter](https://doc.rust-lang.org/std/iter/struct.Filter.html)
 
@@ -217,7 +232,7 @@ where
 }
 ```
 
-Adapters like `Map` and `Filter` are internal to the iterator implementation, so you will rarely use them directly, non the less, let's see a usage example:
+Adapters like `Map` and `Filter` are internal to the iterator implementation, so you will rarely use them directly, nonetheless, let's see a usage example:
 
 ```rust
 #[test]
@@ -269,7 +284,8 @@ pub trait MyFromIterator<T> {
 
 Note that for simplicity, we are not using the `IntoIterator` trait here, as used in the actual `std::iter::FromIterator` trait.
 
-For example, let's implement `MyFromIterator` for `Vec<T>`
+For example, let's implement `MyFromIterator` for `Vec<T>` and `HashSet<T>`. Both examples iterate over the target iterator and push each item into the constructed collection.
+
 ```rust
 impl<T> MyFromIterator<T> for Vec<T> {
     fn my_from_iter<I>(mut iter: I) -> Self
@@ -285,14 +301,23 @@ impl<T> MyFromIterator<T> for Vec<T> {
         vec
     }
 }
-```
 
-```rust
-#[test]
-fn vec_my_from_iter_returns_vec() {
-    let iter = SliceIterator::new(&[1, 2, 3]);
-    let result = Vec::my_from_iter(iter);
-    assert_eq!(result, vec![&1, &2, &3]);
+impl<T> MyFromIterator<T> for HashSet<T>
+where
+    // we need to add these constraints because HashSet::new() requires them
+    T: Eq + Hash,
+{
+    fn my_from_iter<I>(mut iter: I) -> Self
+    where
+        I: MyIterator<Item = T>,
+    {
+        let mut set = HashSet::new();
+        while let Some(x) = iter.next() {
+            set.insert(x);
+        }
+
+        set
+    }
 }
 ```
 

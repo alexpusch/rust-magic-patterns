@@ -35,12 +35,12 @@ where
     where
         I: MyIterator<Item = T>,
     {
-        let mut vec = HashSet::new();
+        let mut set = HashSet::new();
         while let Some(x) = iter.next() {
-            vec.insert(x);
+            set.insert(x);
         }
 
-        vec
+        set
     }
 }
 
