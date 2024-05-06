@@ -3,7 +3,7 @@
 学习 Rust 的最佳方法是查看简单的示例并从中构建。好吧，也许不是最佳方法，但这就是这个博客存储库的内容。
 
 
-### 2024-04-20 - [可视化探索 Rust 流 API](rust-stream-visualized/Readme_ZH_CN.md)
+### 2024-04-20 - [可视化探索 Rust 流接口](rust-stream-visualized/Readme_ZH_CN.md)
 Rust 流 API 设计得很优雅，但你真的了解其内部工作原理吗？让我们可视化流的运行，发现一些有趣的结果
 
 ### 2023-11-18 - [简化 Rust 迭代器的内部](dumbing-down-iterator/Readme_ZH_CN.md)
