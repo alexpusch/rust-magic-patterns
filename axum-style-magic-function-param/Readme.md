@@ -1,5 +1,14 @@
 # Rusts Axum style magic function params example
 
+<details>
+  <summary>Additional languages</summary>
+  <ul>
+    <li>
+      <a href='https://github.com/yushengguo557/rust-magic-patterns/blob/translation-zh-cn/axum-style-magic-function-param/Readme_ZH_CN.md'>Simplified Chinese</a> - <a href="https://github.com/yushengguo557">@yushengguo557</a>
+    </li>
+  </ul>
+</details>
+
 Learning Rust I met a rigid, statically typed language. Specifically it has no function overloading or optional function parameters.
 
 Coming across [Axum](https://github.com/tokio-rs/axum) I was amazed to see stuff like:

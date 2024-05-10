@@ -1,5 +1,14 @@
 # Dumbing down Rust Iterator internals
 
+<details>
+  <summary>Additional languages</summary>
+  <ul>
+    <li>
+      <a href='https://github.com/yushengguo557/rust-magic-patterns/blob/translation-zh-cn/dumbing-down-iterator/Readme_ZH_CN.md'>Simplified Chinese</a> - <a href="https://github.com/yushengguo557">@yushengguo557</a>
+    </li>
+  </ul>
+</details>
+
 The Rust Iterator API is one of the first things a Rust novice should learn after familiarizing themselves with the basics of the language. However, this API and its documentation can be daunting for a beginner.
 
 For example, have you ever looked at the [map](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map) method documentation and wondered why it's so complicated?

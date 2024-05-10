@@ -1,5 +1,15 @@
 # Rust Stream API visualized and exposed
 
+<details>
+  <summary>Additional languages</summary>
+  <ul>
+    <li>
+      <a href='https://github.com/yushengguo557/rust-magic-patterns/blob/translation-zh-cn/rust-stream-visualized/Readme_ZH_CN.md'>Simplified Chinese</a> - <a href="https://github.com/yushengguo557">@yushengguo557</a>
+    </li>
+  </ul>
+</details>
+
+
 Managing concurrency in real-world applications can be quite tricky. Developers must grapple with concurrency control, back pressure, error handling, and more. Thankfully, Rust provides us with the async/await mechanism, and on top of that, the [Stream API](https://docs.rs/futures/latest/futures/stream/index.html). 
 The Stream methods allow us to elegantly define a pipeline of asynchronous operations with a nifty abstraction addressing common use cases.
 
