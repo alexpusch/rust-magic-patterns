@@ -8,7 +8,7 @@
 
 ## 流接口的概述
 
-让我们从流接口的简要概述开始。以下代码定义了一个异步管道，它遍历从 `0` 到 `10` 的整数，限制 `async_work` 方法的并发数量为 3 并执行。然后使用 `async_predicate` 方法对结果进行过滤。这真是太棒了！通过几行代码，我们就创建了一个非平凡的异步控制流。
+让我们从流接口的简要概述开始。以下代码定义了一个异步管道，它遍历从 `0` 到 `10` 的整数，限制 `async_work` 方法的并发数量为 `3` 并执行。然后使用 `async_predicate` 方法对结果进行过滤。这真是太棒了！通过几行代码，我们就创建了一个非平凡的异步控制流。
 
 ```rust
 async fn async_work(i32) -> i32 {...}
@@ -28,7 +28,7 @@ async fn buffered_filter_example() {
 }
 ```
 
-嗯，我们已经可以看到一些复杂的元素了。比如，为什么我使用了 `filter_map` 而不是 `filter`？ 这个烦人的 `pin!(stream)` 在做什么？ 我不会深入探讨这些问题。相反，这里有一些有用的链接：
+嗯，我们已经可以看到一些复杂的东西了。比如，为什么我使用了 `filter_map` 而不是 `filter`？ 这个烦人的 `pin!(stream)` 在做什么？ 我不会深入探讨这些问题。相反，这里有一些有用的链接：
 - [Put a Pin on That](https://ohadravid.github.io/posts/2023-07-put-a-pin-on-that/)
 - [How will futures::StreamExt::filter work with async closures?](https://www.reddit.com/r/rust/comments/r47iqi/how_will_futuresstreamextfilter_work_with_async/)
 

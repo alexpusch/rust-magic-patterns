@@ -1,7 +1,8 @@
-# Rust 的魔法模式
+# Rust 的魔法模式 (简体中文版本)
+
+对应原项目地址(英文版)：https://github.com/alexpusch/rust-magic-patterns
 
 学习 Rust 的最佳方法是查看简单的示例并从中构建。好吧，也许不是最佳方法，但这就是这个博客存储库的内容。
-
 
 ### 2024-04-20 - [可视化探索 Rust 流接口](rust-stream-visualized/Readme_ZH_CN.md)
 Rust 流接口设计得很优雅，但你真的了解其内部工作原理吗？让我们可视化流的运行，发现一些有趣的结果
