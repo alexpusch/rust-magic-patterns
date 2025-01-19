@@ -1,0 +1,1 @@
+{"data":[{"type":"bar","x":[128],"y":[4756],"name":"stream"},{"type":"bar","x":[128],"y":[3651],"name":"pumps"},{"type":"bar","x":[128],"y":[3390],"name":"bumps with backpressure"},{"type":"bar","x":[128],"y":[],"name":"tasks"}],"layout":{"xaxis":{"type":"category"},"yaxis":{"title":{"text":"milliseconds"}},"barmode":"group"},"config":{}}

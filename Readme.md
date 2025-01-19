@@ -2,6 +2,9 @@
 
 The best way to learn Rust is by looking at simplified examples and building from there. Well, maybe not the best way, but this is the content of this blog repository.
 
+### 2025-01-18 - [Async Pipeline Pattern - Eager to work](async-pipeline-pattern/Readme.md)
+The async pipeline pattern utilizes tasks and channels to concurrently process data. Lets learn about it from scratch and wrap it into a crate.
+
 ### 2024-04-20 - [Rust Stream API visualized and exposed](rust-stream-visualized/Readme.md)
 Rust Stream API is very elegant, but do you really know whats going on? Lets visualize streams and find some surprising results
 

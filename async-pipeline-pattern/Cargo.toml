@@ -1,0 +1,22 @@
+[package]
+name = "alternative-async-pipeline"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+futures = "0.3.30"
+pumps = { "path" = "../../pumps_rs"}
+rand = "0.8.5"
+plotters = "0.3.7"
+plotly = { version = "0.10.0", features = ["kaleido"] }
+rand_distr = "0.4.3"
+
+[[bin]]
+name = "bench"
+path = "src/bench.rs"
+
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
