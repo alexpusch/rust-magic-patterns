@@ -2,6 +2,9 @@
 
 The best way to learn Rust is by looking at simplified examples and building from there. Well, maybe not the best way, but this is the content of this blog repository.
 
+### 2025-04-13 - [A Visual Journey Through Async Rust](visual-journey-through-async-rust/Readme.md)
+"Async code is concurrent, not parallel". Have you heard this phrase about Rust/Node.js async runtimes? How about "CPU-bound code will block the async executor"? Let's investigate these claims with some code and visualizations.
+
 ### 2025-01-18 - [Async Pipeline Pattern - Eager to work](async-pipeline-pattern/Readme.md)
 The async pipeline pattern utilizes tasks and channels to concurrently process data. Lets learn about it from scratch and wrap it into a crate.
 
