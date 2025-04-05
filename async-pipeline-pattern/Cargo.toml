@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 tokio = { version = "1", features = ["full"] }
 futures = "0.3.30"
-pumps = { "path" = "../../pumps_rs"}
+pumps = "0.0.4"
 rand = "0.8.5"
 plotters = "0.3.7"
 plotly = { version = "0.10.0", features = ["kaleido"] }
