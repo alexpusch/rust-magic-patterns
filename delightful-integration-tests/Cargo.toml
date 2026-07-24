@@ -1,0 +1,24 @@
+[package]
+name = "resource-acquisition-is-infra"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+testcontainers = "0.26.0"
+bollard = "*"
+anyhow = "*"
+axum = "0.7"
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "macros", "chrono", "uuid"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+lapin = "2.3.1"
+futures = "0.3"
+chrono = { version = "0.4", features = ["serde"] }
+redis = { version = "0.27", features = ["tokio-comp"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+testcontainers-modules = { version = "0.14.0", features = ["redis", "rabbitmq", "postgres"] }
+tower = { version = "0.5", features = ["util"] }
+thiserror = "1"
+reqwest = { version = "0.13.3", features = ["json"]}
