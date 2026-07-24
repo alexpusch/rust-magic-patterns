@@ -8,7 +8,7 @@ But alas, Rust does not provide built-in setup and teardown, and what's more, by
 
 > [!NOTE]
 > Some crates provide similar capabilities. For example [test-context](https://crates.io/crates/test-context)
-> and [rstest](https://docs.rs/rstest/latest/rstest/).
+> and [rstest](https://crates.io/crates/rstest).
 
 Despite my initial skepticism I now think that integration tests in Rust are actually a delight. The delightful Rust concept i'm refering to is RAII, and the crate I now reach for is [testcontainers-rs](https://github.com/testcontainers/testcontainers-rs). The core idea is simple: make Docker container creation easy and ergonomic, and clean containers up automatically. This idea, leveraging RAII for automatic cleanup, removes the need for global setup and teardown and paves a direct path to completely isolated tests that can comfortably run in parallel.
 
@@ -18,7 +18,7 @@ Rust heavily uses the [RAII](https://doc.rust-lang.org/rust-by-example/scope/rai
 
 This useful pattern can be exploited a bit, and extended to automatically manage out-of-process resources. In our use case we wish to make a Docker container a resource and use Rust's ownership rules and `Drop` trait to clean it up automatically.
 
-To demonstrate RAII relevance, in this first example we'll use the [bollard](https://docs.rs/bollard/latest/bollard/) crate to start a RabbitMQ Docker container. We'll create a `RabbitMqContainer` struct that manages the running container for our test:
+To demonstrate RAII relevance, in this first example we'll use the [bollard](https://crates.io/crates/bollard) crate to start a RabbitMQ Docker container. We'll create a `RabbitMqContainer` struct that manages the running container for our test:
 
 ```rust
 struct RabbitMqContainer {
@@ -115,7 +115,7 @@ As you can see, even this small app requires several infrastructure servers to b
 
 ## Setting up the tests
 
-First order of business is to start a RabbitMQ node. To achieve this we will create a `RabbitMqImage` struct that implements the [Image](https://docs.rs/testcontainers/latest/testcontainers/core/trait.Image.html) trait. The `Image` trait allows us to define container properties, such as tag, cmd, mounts and more.
+First order of business is to start a RabbitMQ node. To achieve this we will create a `RabbitMqImage` struct that implements the [Image](https://docs.rs/testcontainers/0.27.2/testcontainers/core/trait.Image.html) trait. The `Image` trait allows us to define container properties, such as tag, cmd, mounts and more.
 
 ```rust
 pub struct RabbitMqImage;
