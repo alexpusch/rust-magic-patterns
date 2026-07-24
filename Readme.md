@@ -2,6 +2,11 @@
 
 The best way to learn Rust is by looking at simplified examples and building from there. Well, maybe not the best way, but this is the content of this blog repository.
 
+### 2026-07-24 - [Delightful integration tests in Rust](delightful-integration-tests/Readme.md)
+Integration tests require us to manage application infrastructure at test runtime. Let’s learn how to leverage RAII to help with that, and introduce 
+[testcontainers-rs](https://github.com/testcontainers/testcontainers-rs)
+, which makes this process truly delightful.
+
 ### 2025-04-13 - [A Visual Journey Through Async Rust](visual-journey-through-async-rust/Readme.md)
 "Async code is concurrent, not parallel". Have you heard this phrase about Rust/Node.js async runtimes? How about "CPU-bound code will block the async executor"? Let's investigate these claims with some code and visualizations.
 
